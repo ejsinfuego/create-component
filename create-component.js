@@ -6,7 +6,7 @@ const { program } = require('commander');
 program
   .version('1.0.0')
   .arguments('<componentName>')
-  .option('--shared [dir]', 'Create in shared components directory')
+  .option('--shared', 'Create in shared components directory')
   .option('--ts', 'Create TypeScript component')
   .action((componentName, options) => {
     const baseDir = options.shared
@@ -41,14 +41,9 @@ const ${componentName} = ({ children }: ${componentName}Props) => {
 
 export default ${componentName};
 `;
-
-    // Index file content
-    const indexContent = `export { default } from './${componentName}';`;
-
     // Create files
     fs.writeFileSync(path.join(componentDir, `${componentName}.${extension}`), componentContent);
 
-    fs.writeFileSync(path.join(componentDir, `index.${extension}`), indexContent);
 
     console.log(`Successfully created ${componentName} component in:`);
     console.log(componentDir);
